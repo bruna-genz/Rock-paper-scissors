@@ -1,0 +1,90 @@
+<script>
+let options = ["Rock", "Paper", "Scissors"];
+
+function computerPlay() {
+    var computerResult = options[Math.floor(Math.random() * options.length)];
+    return computerResult;
+}
+
+function play(playerSelection) {
+    const computerSelection = computerPlay();
+    return playRound(playerSelection, computerSelection);
+}
+
+function playRound(playerSelection, computerSelection) {
+    playerSelection = playerSelection.toLowerCase();
+    computerSelection = computerSelection.toLowerCase();
+
+     if (playerSelection == "rock" && computerSelection == "paper") {
+        alert("Computer won. Paper beats Rock");
+        return "computer";
+    } else if (playerSelection == "rock" && computerSelection == "scissors") {
+        alert("You won. Rock beats Scissors");
+        return "player";
+    } else if (playerSelection == "paper" && computerSelection == "rock") {
+        alert("You won. Paper beats Rocks");
+        return "player";
+    } else if (playerSelection == "paper" && computerSelection == "scissors"){
+        alert("Computer won. Scissors beats Paper");
+        return "computer";
+    } else if (playerSelection == "scissors" && computerSelection == "rock") {
+        alert("Computer won. Rock beats Scissors")
+        return "computer";
+    } else if (playerSelection == "scissors" && computerSelection == "paper") {
+        alert("You won. Scissors beats Paper");
+        return "player";
+    } else if (playerSelection == computerSelection) {
+        alert("It's a tied");
+        return "tied";
+    } else {
+        alert("That isn't a valid option");
+        return "invalid"
+    }
+
+}
+
+function game() {
+    let pointComputer = 0;
+    let pointPlayer = 0;
+
+    function promptAndSumPoints() {
+        let playerCoco = prompt("Rock, paper, or scissors?");
+        let result = play(playerCoco);
+        console.log(result); 
+        
+        if (result == "computer") {
+            ++pointComputer
+        } else if (result == "player") {
+            ++pointPlayer        
+        }
+
+    }
+//jogada 1
+    promptAndSumPoints();
+
+//jogada 2 
+    promptAndSumPoints();
+
+//jogada 3
+    promptAndSumPoints();
+
+//jogada 4
+    promptAndSumPoints();
+
+//jogada 5
+    promptAndSumPoints();
+
+    let scoreInf = "\nResult= Computer " + pointComputer + " x " + pointPlayer + " Player."
+
+    if (pointPlayer > pointComputer) {
+        alert("You won!" + scoreInf);
+    } else if (pointPlayer < pointComputer) {
+        alert("You lost!" + scoreInf);
+    } else {
+        alert("It's a tied." + scoreInf);
+    }
+    
+}
+
+game();
+</script>

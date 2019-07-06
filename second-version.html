@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <link href="./stylesheet.css" rel="stylesheet" type="text/css" media="all">
+        <title>Rock, paper, scissors</title>
+        <link href="https://fonts.googleapis.com/css?family=Mali&display=swap" rel="stylesheet">
+</head>
+    <body>
+        <h1>
+            Pick your choice:
+        </h1>
+        <div id="container">
+            <button id="rock"></button>
+            <button id="paper"></button>
+            <button id="scissors"></button>
+        </div>
+
+
+<script>
+//DOM manipulation
+const buttons = document.querySelectorAll("button");
+buttons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+        play(button.id)
+    });
+});
+
+const roundsResult = document.createElement("div");
+roundsResult.classList.add("gameResult");
+roundsResult.textContent = ""
+container.appendChild(roundsResult);
+
+
+const gameScore = document.createElement("div");
+gameScore.classList.add("score");
+gameScore.textContent = ""
+container.appendChild(gameScore);
+
+const winner = document.createElement("div");
+winner.classList.add("winner");
+winner.textContent = ""
+container.appendChild(winner);
+
+const buttonRestart = document.createElement("button");
+buttonRestart.textContent = "Restart Game"
+buttonRestart.addEventListener("click", (e) => {
+    restartGame();
+});
+
+buttonRestart.classList.add("restartButton");
+
+
+//JS code
+let options = ["Rock", "Paper", "Scissors"];
+let pointComputer = 0;
+let pointPlayer = 0;
+let isEndGame = false;
+
+function play(playerSelection) {
+    if (isEndGame == true) {
+        
+    } else {
+        const computerSelection = computerPlay();
+        return playRound(playerSelection, computerSelection);
+    }
+}
+
+function computerPlay() { 
+    var computerResult = options[Math.floor(Math.random() * options.length)];
+    return computerResult;
+}
+
+function playRound(playerSelection, computerSelection) {
+    playerSelection = playerSelection.toLowerCase();
+    computerSelection = computerSelection.toLowerCase();
+
+    let printedResult = "";
+
+     if (playerSelection == "rock" && computerSelection == "paper") {
+        printedResult = "Computer won!";
+    } else if (playerSelection == "rock" && computerSelection == "scissors") {
+        printedResult = "You won!";
+    } else if (playerSelection == "paper" && computerSelection == "rock") {
+        printedResult = "You won!";
+    } else if (playerSelection == "paper" && computerSelection == "scissors"){
+        printedResult = "Computer won!";
+    } else if (playerSelection == "scissors" && computerSelection == "rock") {
+        printedResult = "Computer won!";
+    } else if (playerSelection == "scissors" && computerSelection == "paper") {
+        printedResult = "You won!";
+    } else if (playerSelection == computerSelection) {
+        printedResult = "It's a tied!";
+    } else {
+        printedResult = "That isn't a valid option";
+    }
+
+    printResult(printedResult);
+    calculateScore(printedResult);
+    declareWinner();
+}
+
+function printResult(result) {
+    roundsResult.textContent = result;
+};
+
+function calculateScore(result) {
+    let sumOfResults = result;
+
+    if (result == "Computer won!") {
+        ++pointComputer
+    } else if (result == "You won!") {
+        ++pointPlayer        
+    }
+
+    gameScore.textContent = "computer " + pointComputer + " x " + pointPlayer + " player."
+}
+
+function declareWinner() {
+    if (pointComputer == 5) {
+        winner.textContent = "Computer is the ultimate winner!!!";
+        isEndGame = true;
+        container.appendChild(buttonRestart);
+    } else if (pointPlayer == 5) {
+        winner.textContent = "You are the ultimate winner!!!";
+        isEndGame = true;
+        container.appendChild(buttonRestart);
+    }
+};
+
+function restartGame() {
+    pointComputer = 0;
+    pointPlayer = 0;
+    isEndGame = false;
+    container.removeChild(buttonRestart);
+    roundsResult.textContent = "";
+    gameScore.textContent = "";
+    winner.textContent = "";
+};
+
+</script>
+
+    </body>
+</html>
